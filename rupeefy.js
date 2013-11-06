@@ -18,21 +18,11 @@ chrome.runtime.onMessage.addListener(
    var regex = new RegExp("(\\$)((?:</?[a-z\\s=\"]*?>)+)*(\\d+)((?:</?[a-z\\s=\"]*?>)+)*\.?((?:</?[a-z\s=\"]*?>)+)*(\\d+)*","g");
 
    
-   var div = document.getElementsByTagName('div');
+  
    
    /* converting dollar to rupee for div text nodes , forms, selects , table rows , list 
       Shuld cover maximum websites
    */
-
-   for(var i =0; i < div.length ; i++)
-   {
-   		if(div[i].childNodes.length==1)
-   		{
-   			rupeefy(div[i],1);
-   			alert('sdf');
-   		}
-   }
-
 
    var select = document.getElementsByTagName('select');
    for(var i =0; i < select.length ; i++)
@@ -57,6 +47,16 @@ chrome.runtime.onMessage.addListener(
    for(var i =0; i < sp.length ; i++)
    {
    		rupeefy(sp[i]);
+   }
+
+   var div = document.getElementsByTagName('div');
+   for(var i =0; i < div.length ; i++)
+   {
+   		if(div[i].childNodes.length==1 && div[i].childNodes[0].nodeType == 3)
+   		{
+   			rupeefy(div[i].childNodes[0],1);
+   			
+   		}
    }
 
 
