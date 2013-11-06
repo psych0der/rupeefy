@@ -1,3 +1,4 @@
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
    /* stripping first line form html response*/
@@ -12,37 +13,125 @@ chrome.runtime.onMessage.addListener(
    str = str.substring(0,str.indexOf(' '));
    var scale = parseFloat(str);
    
-   
+
    /* regex for capturing dollar amount from tags */
    var regex = new RegExp("(\\$)((?:</?[a-z\\s=\"]*?>)+)*(\\d+)((?:</?[a-z\\s=\"]*?>)+)*\.?((?:</?[a-z\s=\"]*?>)+)*(\\d+)*","g");
-   document.body.innerHTML = document.body.innerHTML.replace(regex,function(match,p1,p2,p3,p4,p5,p6,offset, string){
-   	
+
    
-   	var whole = parseInt(p3);
-   	whole*= scale;
+   var div = document.getElementsByTagName('div');
+   
+   /* converting dollar to rupee for div text nodes , forms, selects , table rows , list 
+      Shuld cover maximum websites
+   */
 
-   	var num = p3+'.'+p6;
-   	num = parseFloat(num);
-   	num *=scale;
+   for(var i =0; i < div.length ; i++)
+   {
+   		if(div[i].childNodes.length==1)
+   		{
+   			rupeefy(div[i],1);
+   			alert('sdf');
+   		}
+   }
 
-   	var whole = parseInt(num);
 
-   	dec = num - whole;
-   	dec= parseInt(dec*100);
+   var select = document.getElementsByTagName('select');
+   for(var i =0; i < select.length ; i++)
+   {
+   		rupeefy(select[i]);
+   }
 
-   	/* fallbacks for unavailability of elements */
-   	if(!p2)
-   		p2 = "";
 
-   	if(!p4)
-   		p4 = "";
+   var tr = document.getElementsByTagName('tr');
+   for(var i =0; i < tr.length ; i++)
+   {
+   		rupeefy(tr[i]);
+   }
 
-   	if(!p5)
-   		p5 = "";
+   var li = document.getElementsByTagName('li');
+   for(var i =0; i < li.length ; i++)
+   {
+   		rupeefy(li[i]);
+   }
 
-   	  	return 'Rs.'+p2+String(whole)+p4+'.'+p5+String(dec);
-   });
+   var sp = document.getElementsByTagName('span');
+   for(var i =0; i < sp.length ; i++)
+   {
+   		rupeefy(sp[i]);
+   }
+
+
+
+   function rupeefy(element,textNode){
+
+   	textNode = textNode || 0;
+
+   	if(!textNode)
+   	{	
+	   	element.innerHTML = element.innerHTML.replace(regex,function(match,p1,p2,p3,p4,p5,p6,offset, string){
+	   	
+	   
+	   	var whole = parseInt(p3);
+	   	whole*= scale;
+
+	   	var num = p3+'.'+p6;
+	   	num = parseFloat(num);
+	   	num *=scale;
+
+	   	var whole = parseInt(num);
+
+	   	dec = num - whole;
+	   	dec= parseInt(dec*100);
+
+	   	/* fallbacks for unavailability of elements */
+	   	if(!p2)
+	   		p2 = "";
+
+	   	if(!p4)
+	   		p4 = "";
+
+	   	if(!p5)
+	   		p5 = "";
+
+	   	  	return 'Rs.'+p2+String(whole)+p4+'.'+p5+String(dec);
+	   });
+
+   }
+
+   else{
+
+   		element.textContent = element.textContent.replace(regex,function(match,p1,p2,p3,p4,p5,p6,offset, string){
+	   	
+	   
+	   	var whole = parseInt(p3);
+	   	whole*= scale;
+
+	   	var num = p3+'.'+p6;
+	   	num = parseFloat(num);
+	   	num *=scale;
+
+	   	var whole = parseInt(num);
+
+	   	dec = num - whole;
+	   	dec= parseInt(dec*100);
+
+	   	/* fallbacks for unavailability of elements */
+	   	if(!p2)
+	   		p2 = "";
+
+	   	if(!p4)
+	   		p4 = "";
+
+	   	if(!p5)
+	   		p5 = "";
+
+	   	  	return 'Rs.'+p2+String(whole)+p4+'.'+p5+String(dec);
+	   });
+
+
+   }
  
-  });
+}
+
+});
 
 
