@@ -11,4 +11,4 @@ Crux of this extensions lies in grabbing dollar amount strings from different we
 
 Can be extended to provide outputs for different currencies.Patches welcome
 
-App link : 
+App link : [rupeefy](https://chrome.google.com/webstore/detail/rupeefy/mapmallkidpoahefphfhgipgejjgjico)
