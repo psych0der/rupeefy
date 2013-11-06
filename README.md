@@ -3,7 +3,6 @@ rupeefy
 
 chrome extension for converting dollar rated to rupee based on current rates.
 
-~~~~~
 
 Rupeefy uses google finance calculator to fetch latest dollar to rupee conversion rate, this eleminates need to susbcribe to expensive apis.
 
