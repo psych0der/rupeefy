@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(
    
 
    /* regex for capturing dollar amount from tags */
-   var regex = new RegExp("(\\$)((?:</?[a-z\\s=\"]*?>)+)*(\\d+)((?:</?[a-z\\s=\"]*?>)+)*\.?((?:</?[a-z\s=\"]*?>)+)*(\\d+)*","g");
+   var regex = new RegExp("(\\$)((?:</?[a-z\\s=\"]*?>)+)*(?:(\\d+\\,?)+)((?:</?[a-z\\s=\"]*?>)+)*\.?((?:</?[a-z\s=\"]*?>)+)*(\\d+)*","g");
 
    
   
@@ -69,7 +69,7 @@ chrome.runtime.onMessage.addListener(
    	{	
 	   	element.innerHTML = element.innerHTML.replace(regex,function(match,p1,p2,p3,p4,p5,p6,offset, string){
 	   	
-	   
+	      p3 = p3.replace(',','');
 	   	var whole = parseInt(p3);
 	   	whole*= scale;
 
@@ -92,7 +92,7 @@ chrome.runtime.onMessage.addListener(
 	   	if(!p5)
 	   		p5 = "";
 
-	   	  	return 'Rs.'+p2+String(whole)+p4+'.'+p5+String(dec);
+	   	  	return '₹'+p2+String(whole)+p4+'.'+p5+String(dec);
 	   });
 
    }
@@ -124,7 +124,7 @@ chrome.runtime.onMessage.addListener(
 	   	if(!p5)
 	   		p5 = "";
 
-	   	  	return 'Rs.'+p2+String(whole)+p4+'.'+p5+String(dec);
+	   	  	return '₹'+p2+String(whole)+p4+'.'+p5+String(dec);
 	   });
 
 
