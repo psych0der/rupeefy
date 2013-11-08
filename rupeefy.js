@@ -24,6 +24,12 @@ chrome.runtime.onMessage.addListener(
       Shuld cover maximum websites
    */
 
+   var p = document.getElementsByTagName('p');
+   for(var i =0; i < p.length ; i++)
+   {
+   		rupeefy(p[i]);
+   }
+
    var select = document.getElementsByTagName('select');
    for(var i =0; i < select.length ; i++)
    {

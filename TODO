@@ -1,0 +1,2 @@
+# update regex to support '$ 24.89' case
+# look into cases with ',' in between
